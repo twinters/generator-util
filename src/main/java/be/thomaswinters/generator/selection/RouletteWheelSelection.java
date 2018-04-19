@@ -19,10 +19,9 @@ public class RouletteWheelSelection<E> extends FitnessBasedSelector<E> {
     public Collection<E> select(Map<E, Double> map, int amount) {
         AccumulatedMap<E> accum = new AccumulatedMap<>(map);
         DoubleSupplier indexGenerator = () -> ThreadLocalRandom.current().nextDouble(accum.getTotalSize());
-
         return DoubleStream.generate(indexGenerator)
                 .limit(amount)
-                .mapToObj(index -> accum.get(index))
+                .mapToObj(accum::get)
                 .collect(Collectors.toList());
     }
 }
