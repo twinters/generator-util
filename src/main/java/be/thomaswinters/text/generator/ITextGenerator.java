@@ -4,11 +4,12 @@ import be.thomaswinters.generator.generators.IGenerator;
 
 import java.util.Optional;
 
+@FunctionalInterface
 public interface ITextGenerator extends IGenerator<String> {
     Optional<String> generateText();
 
     @Override
-    default Optional<String> get() {
+    default Optional<String> generate() {
         return generateText();
     }
 }
