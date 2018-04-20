@@ -9,14 +9,14 @@ public class FilteringGenerator<E> implements IGenerator<E> {
     private final IGenerator<E> innerGenerator;
     private final Predicate<E> filter;
 
-    public FilteringGenerator(IGenerator<E> innerGenerator, Predicate<E> filter, int maxTrials) {
+    public FilteringGenerator(IGenerator<E> innerGenerator, int maxTrials, Predicate<E>... filters) {
         this.innerGenerator = innerGenerator;
-        this.filter = filter;
+        this.filter = Stream.of(filters).reduce(x -> true, Predicate::and);
         this.maxTrials = maxTrials;
     }
 
-    public FilteringGenerator(IGenerator innerGenerator, Predicate<E> filter) {
-        this(innerGenerator, filter, Integer.MAX_VALUE);
+    public FilteringGenerator(IGenerator innerGenerator, Predicate<E>... filters) {
+        this(innerGenerator, Integer.MAX_VALUE, filters);
     }
 
     @Override
