@@ -5,7 +5,7 @@ import be.thomaswinters.generator.generators.IGenerator;
 import java.util.Optional;
 
 @FunctionalInterface
-public interface ITextGenerator extends IGenerator<String> {
+public interface IStringGenerator extends IGenerator<String> {
     Optional<String> generateText();
 
     @Override
