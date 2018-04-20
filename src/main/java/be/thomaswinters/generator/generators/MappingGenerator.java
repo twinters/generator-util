@@ -9,13 +9,9 @@ public class MappingGenerator<E> implements IGenerator<E> {
     private final Supplier<Optional<E>> innerGenerator;
     private final Function<E, E> operator;
 
-    public MappingGenerator(Supplier<Optional<E>> innerGenerator, Function<E, E> operator) {
-        this.innerGenerator = innerGenerator;
-        this.operator = operator;
-    }
-
     public MappingGenerator(Supplier<Optional<E>> innerGenerator, Function<E, E>... operators) {
-        this(innerGenerator, Stream.of(operators).reduce(Function::andThen).get());
+        this.innerGenerator = innerGenerator;
+        this.operator = Stream.of(operators).reduce(Function.identity(), Function::andThen);
     }
 
 
