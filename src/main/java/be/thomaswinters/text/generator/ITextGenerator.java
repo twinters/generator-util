@@ -1,11 +1,14 @@
 package be.thomaswinters.text.generator;
 
-import java.util.function.Supplier;
+import be.thomaswinters.generator.generators.IGenerator;
 
-public interface ITextGenerator extends Supplier<String> {
-    String generateText();
+import java.util.Optional;
 
-    default String get() {
+public interface ITextGenerator extends IGenerator<String> {
+    Optional<String> generateText();
+
+    @Override
+    default Optional<String> get() {
         return generateText();
     }
 }
