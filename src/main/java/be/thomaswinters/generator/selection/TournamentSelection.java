@@ -2,10 +2,7 @@ package be.thomaswinters.generator.selection;
 
 import be.thomaswinters.generator.fitness.IFitnessFunction;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.IntSupplier;
@@ -36,7 +33,7 @@ public class TournamentSelection<E> extends FitnessBasedSelector<E> {
                                 .limit(tournamentSize)
                                 .mapToObj(keys::get)
                                 // Find winner of tournament
-                                .max((e, f) -> (int) Math.signum(e.getValue() - f.getValue()))
+                                .max(Comparator.comparingDouble(Entry::getValue))
                                 .map(Entry::getKey)
                                 .get())
                 .collect(Collectors.toList());
