@@ -8,10 +8,6 @@ import java.util.function.Supplier;
 
 
 public interface IRelatedGenerator<E> extends IGenerator<E> {
-    default Optional<E> generateRelated(Optional<E> input) {
-        return input.map(this::generateRelated).orElse(generate());
-    }
-
     Optional<E> generateRelated(E input);
 
 
