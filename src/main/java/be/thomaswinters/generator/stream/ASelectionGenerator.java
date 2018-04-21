@@ -3,7 +3,6 @@ package be.thomaswinters.generator.stream;
 import be.thomaswinters.generator.generators.IGenerator;
 import be.thomaswinters.generator.selection.ISelector;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -26,15 +25,11 @@ public abstract class ASelectionGenerator<E, F extends Supplier<Optional<E>>> im
     }
 
     protected Optional<E> select(Supplier<Optional<E>> generator) {
-        List<E> choices = Stream.generate(generator)
+        return selector.select(Stream.generate(generator)
                 .limit(amountOfGenerations)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
-                .collect(Collectors.toList());
-        if (choices.isEmpty()) {
-            return Optional.empty();
-        }
-        return Optional.of(selector.select(choices));
+                .collect(Collectors.toList()));
     }
 
     protected F getInnerGenerator() {
