@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public class MappingRelatedGenerator<E> extends AMappingGenerator<E, IRelatedGenerator<E>> implements IRelatedGenerator<E> {
+    @SafeVarargs
     public MappingRelatedGenerator(IRelatedGenerator<E> innerGenerator, Function<E, E>... operators) {
         super(innerGenerator, operators);
     }

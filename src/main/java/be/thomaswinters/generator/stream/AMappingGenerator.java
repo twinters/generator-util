@@ -11,6 +11,7 @@ public abstract class AMappingGenerator<E, F extends Supplier<Optional<E>>> impl
     private final F innerGenerator;
     private final Function<E, E> operator;
 
+    @SafeVarargs
     public AMappingGenerator(F innerGenerator, Function<E, E>... operators) {
         this.innerGenerator = innerGenerator;
         this.operator = Stream.of(operators).reduce(Function.identity(), Function::andThen);

@@ -7,10 +7,12 @@ import java.util.function.Predicate;
 
 public class FilteringRelatedGenerator<E> extends AFilteringGenerator<E, IRelatedGenerator<E>> implements IRelatedGenerator<E> {
 
+    @SafeVarargs
     public FilteringRelatedGenerator(IRelatedGenerator<E> innerGenerator, int maxTrials, Predicate<E>... filters) {
         super(innerGenerator, maxTrials, filters);
     }
 
+    @SafeVarargs
     public FilteringRelatedGenerator(IRelatedGenerator<E> innerGenerator, Predicate<E>... filters) {
         super(innerGenerator, filters);
     }

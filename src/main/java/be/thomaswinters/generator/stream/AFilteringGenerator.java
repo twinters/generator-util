@@ -13,12 +13,14 @@ public abstract class AFilteringGenerator<E, F extends Supplier<Optional<E>>> im
     private final Predicate<E> filter;
 
     //region Constructor
+    @SafeVarargs
     public AFilteringGenerator(F innerGenerator, int maxTrials, Predicate<E>... filters) {
         this.innerGenerator = innerGenerator;
         this.filter = Stream.of(filters).reduce(x -> true, Predicate::and);
         this.maxTrials = maxTrials;
     }
 
+    @SafeVarargs
     public AFilteringGenerator(F innerGenerator, Predicate<E>... filters) {
         this(innerGenerator, Integer.MAX_VALUE, filters);
     }
