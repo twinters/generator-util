@@ -11,6 +11,10 @@ public class FilteringRelatedGenerator<E> extends AFilteringGenerator<E, IRelate
         super(innerGenerator, maxTrials, filters);
     }
 
+    public FilteringRelatedGenerator(IRelatedGenerator<E> innerGenerator, Predicate<E>... filters) {
+        super(innerGenerator, filters);
+    }
+
     @Override
     public Optional<E> generateRelated(E input) {
         return filter(() -> getInnerGenerator().generateRelated(input));
