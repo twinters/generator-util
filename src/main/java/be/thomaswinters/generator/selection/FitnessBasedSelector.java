@@ -4,8 +4,6 @@ import be.thomaswinters.generator.fitness.IFitnessFunction;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public abstract class FitnessBasedSelector<E> implements ISelector<E> {
@@ -16,9 +14,8 @@ public abstract class FitnessBasedSelector<E> implements ISelector<E> {
     }
 
     @Override
-    public Collection<E> select(List<E> collection, int amount) {
-        return select(collection.stream().collect(
-                Collectors.toMap(Function.identity(), fitnessFunction::getFitness)), amount);
+    public Collection<E> select(List<E> list, int amount) {
+        return selectWeighted(list.stream().map(e -> new Weighted<>(e, fitnessFunction.getFitness(e))).collect(Collectors.toList()), amount);
     }
 
     /**
@@ -28,7 +25,7 @@ public abstract class FitnessBasedSelector<E> implements ISelector<E> {
      * @param amount The amount to select
      * @return A collection containing exactly as many items as required by "amount"
      */
-    public abstract Collection<E> select(Map<E, Double> map, int amount);
+    public abstract Collection<E> selectWeighted(List<Weighted<E>> map, int amount);
 
 
 }

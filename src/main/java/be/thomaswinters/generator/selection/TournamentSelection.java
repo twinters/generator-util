@@ -2,8 +2,9 @@ package be.thomaswinters.generator.selection;
 
 import be.thomaswinters.generator.fitness.IFitnessFunction;
 
-import java.util.*;
-import java.util.Map.Entry;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.IntSupplier;
 import java.util.stream.Collectors;
@@ -18,12 +19,11 @@ public class TournamentSelection<E> extends FitnessBasedSelector<E> {
     }
 
     @Override
-    public Collection<E> select(Map<E, Double> map, int amount) {
-        if (map.isEmpty()) {
-            throw new IllegalArgumentException("Map can not be empty:" + map);
+    public Collection<E> selectWeighted(List<Weighted<E>> list, int amount) {
+        if (list.isEmpty()) {
+            throw new IllegalArgumentException("Map can not be empty:" + list);
         }
-        List<Entry<E, Double>> keys = new ArrayList<>(map.entrySet());
-        IntSupplier generator = () -> ThreadLocalRandom.current().nextInt(keys.size());
+        IntSupplier generator = () -> ThreadLocalRandom.current().nextInt(list.size());
 
         // Amount of times
         return IntStream.range(0, amount)
@@ -31,10 +31,10 @@ public class TournamentSelection<E> extends FitnessBasedSelector<E> {
                         // Generate tournament
                         IntStream.generate(generator)
                                 .limit(tournamentSize)
-                                .mapToObj(keys::get)
+                                .mapToObj(list::get)
                                 // Find winner of tournament
-                                .max(Comparator.comparingDouble(Entry::getValue))
-                                .map(Entry::getKey)
+                                .max(Comparator.comparingDouble(Weighted::getFitness))
+                                .map(Weighted::getElement)
                                 .get())
                 .collect(Collectors.toList());
     }

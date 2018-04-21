@@ -3,7 +3,7 @@ package be.thomaswinters.generator.selection;
 import be.thomaswinters.generator.fitness.IFitnessFunction;
 
 import java.util.Collection;
-import java.util.Map;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class PickBestSelector<E> extends FitnessBasedSelector<E> {
@@ -12,12 +12,12 @@ public class PickBestSelector<E> extends FitnessBasedSelector<E> {
     }
 
     @Override
-    public Collection<E> select(Map<E, Double> map, int amount) {
-        return map.entrySet()
+    public Collection<E> selectWeighted(List<Weighted<E>> list, int amount) {
+        return list
                 .stream()
-                .sorted((e, f) -> (int) Math.signum(e.getValue() - f.getValue()))
+                .sorted((e, f) -> (int) Math.signum(e.getFitness() - f.getFitness()))
                 .limit(amount)
-                .map(Map.Entry::getKey)
+                .map(Weighted::getElement)
                 .collect(Collectors.toList());
     }
 }
