@@ -1,0 +1,18 @@
+package be.thomaswinters.generator.related;
+
+import be.thomaswinters.generator.stream.AFilteringGenerator;
+
+import java.util.Optional;
+import java.util.function.Predicate;
+
+public class FilteringRelatedGenerator<E> extends AFilteringGenerator<E, IRelatedGenerator<E>> implements IRelatedGenerator<E> {
+
+    public FilteringRelatedGenerator(IRelatedGenerator<E> innerGenerator, int maxTrials, Predicate<E>... filters) {
+        super(innerGenerator, maxTrials, filters);
+    }
+
+    @Override
+    public Optional<E> generateRelated(E input) {
+        return filter(() -> getInnerGenerator().generateRelated(input));
+    }
+}

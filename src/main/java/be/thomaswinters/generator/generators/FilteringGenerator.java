@@ -1,31 +1,19 @@
 package be.thomaswinters.generator.generators;
 
+import be.thomaswinters.generator.stream.AFilteringGenerator;
+
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
+import java.util.function.Supplier;
 
-public class FilteringGenerator<E> implements IGenerator<E> {
-    private final int maxTrials;
-    private final IGenerator<E> innerGenerator;
-    private final Predicate<E> filter;
-
-    public FilteringGenerator(IGenerator<E> innerGenerator, int maxTrials, Predicate<E>... filters) {
-        this.innerGenerator = innerGenerator;
-        this.filter = Stream.of(filters).reduce(x -> true, Predicate::and);
-        this.maxTrials = maxTrials;
+public class FilteringGenerator<E> extends AFilteringGenerator<E, Supplier<Optional<E>>> implements IGenerator<E> {
+    @SafeVarargs
+    public FilteringGenerator(Supplier<Optional<E>> innerGenerator, int maxTrials, Predicate<E>... filters) {
+        super(innerGenerator, maxTrials, filters);
     }
 
-    public FilteringGenerator(IGenerator innerGenerator, Predicate<E>... filters) {
-        this(innerGenerator, Integer.MAX_VALUE, filters);
-    }
-
-    @Override
-    public Optional<E> generate() {
-        return Stream.generate(innerGenerator::generate)
-                .limit(maxTrials)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .filter(filter)
-                .findFirst();
+    @SafeVarargs
+    public FilteringGenerator(Supplier<Optional<E>> innerGenerator, Predicate<E>... filters) {
+        super(innerGenerator, filters);
     }
 }
