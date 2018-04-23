@@ -9,6 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.IntSupplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class TournamentSelection<E> extends FitnessBasedSelector<E> {
     private final int tournamentSize;
@@ -19,7 +20,8 @@ public class TournamentSelection<E> extends FitnessBasedSelector<E> {
     }
 
     @Override
-    public Collection<E> selectWeighted(List<Weighted<E>> list, int amount) {
+    public Collection<E> selectWeighted(Stream<Weighted<E>> stream, int amount) {
+        List<Weighted<E>> list = stream.collect(Collectors.toList());
         if (list.isEmpty()) {
             throw new IllegalArgumentException("Map can not be empty:" + list);
         }

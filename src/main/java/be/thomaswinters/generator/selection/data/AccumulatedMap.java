@@ -4,18 +4,19 @@ import be.thomaswinters.generator.selection.Weighted;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.Ordering;
 
-import java.util.List;
 import java.util.NavigableMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class AccumulatedMap<E> {
     private final double totalSize;
     private final NavigableMap<Double, E> accumulatedMap;
 
-    public AccumulatedMap(List<Weighted<E>> list) {
+    public AccumulatedMap(Stream<Weighted<E>> stream) {
         ImmutableSortedMap.Builder<Double, E> b =
-                new ImmutableSortedMap.Builder<Double, E>(Ordering.natural());
+                new ImmutableSortedMap.Builder<>(Ordering.natural());
         double currentTotal = 0d;
-        for (Weighted<E> entry : list) {
+        for (Weighted<E> entry : stream.collect(Collectors.toList())) {
             currentTotal += entry.getFitness();
             b.put(currentTotal, entry.getElement());
         }

@@ -5,7 +5,6 @@ import be.thomaswinters.generator.selection.ISelector;
 
 import java.util.Optional;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class ASelectionGenerator<E, F extends Supplier<Optional<E>>> implements IGenerator<E> {
@@ -28,8 +27,7 @@ public abstract class ASelectionGenerator<E, F extends Supplier<Optional<E>>> im
         return selector.select(Stream.generate(generator)
                 .limit(amountOfGenerations)
                 .filter(Optional::isPresent)
-                .map(Optional::get)
-                .collect(Collectors.toList()));
+                .map(Optional::get));
     }
 
     protected F getInnerGenerator() {
