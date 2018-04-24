@@ -7,20 +7,19 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-public abstract class ASelectionGenerator<E, F extends Supplier<Optional<E>>> implements IGenerator<E> {
-    private final F innerGenerator;
+public abstract class ASelectionGenerator<E, F extends Supplier<Optional<E>>> extends AGeneratorDecorator<E, F> implements IGenerator<E> {
     private final ISelector<E> selector;
     private final int amountOfGenerations;
 
     public ASelectionGenerator(F innerGenerator, ISelector<E> selector, int amountOfGenerations) {
-        this.innerGenerator = innerGenerator;
+        super(innerGenerator);
         this.selector = selector;
         this.amountOfGenerations = amountOfGenerations;
     }
 
     @Override
     public Optional<E> generate() {
-        return select(innerGenerator);
+        return select(getInnerGenerator());
     }
 
     protected Optional<E> select(Supplier<Optional<E>> generator) {
@@ -30,7 +29,4 @@ public abstract class ASelectionGenerator<E, F extends Supplier<Optional<E>>> im
                 .map(Optional::get));
     }
 
-    protected F getInnerGenerator() {
-        return innerGenerator;
-    }
 }

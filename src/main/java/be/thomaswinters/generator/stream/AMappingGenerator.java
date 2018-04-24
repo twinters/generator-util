@@ -5,20 +5,18 @@ import be.thomaswinters.generator.generators.IGenerator;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
-public abstract class AMappingGenerator<E, F extends Supplier<Optional<E>>> implements IGenerator<E> {
+public abstract class AMappingGenerator<E, F extends Supplier<Optional<E>>, G> implements IGenerator<G> {
     private final F innerGenerator;
-    private final Function<E, E> operator;
+    private final Function<E, G> operator;
 
-    @SafeVarargs
-    public AMappingGenerator(F innerGenerator, Function<E, E>... operators) {
+    public AMappingGenerator(F innerGenerator, Function<E, G> operator) {
         this.innerGenerator = innerGenerator;
-        this.operator = Stream.of(operators).reduce(Function.identity(), Function::andThen);
+        this.operator = operator;
     }
 
     @Override
-    public Optional<E> generate() {
+    public Optional<G> generate() {
         return innerGenerator.get().map(operator);
     }
 
@@ -26,7 +24,7 @@ public abstract class AMappingGenerator<E, F extends Supplier<Optional<E>>> impl
         return innerGenerator;
     }
 
-    protected Function<E, E> getOperator() {
+    protected Function<E, G> getOperator() {
         return operator;
     }
 }

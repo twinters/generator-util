@@ -1,19 +1,16 @@
 package be.thomaswinters.generator.stream;
 
-import be.thomaswinters.generator.generators.IGenerator;
-
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 
-public abstract class ARetryingGenerator<E, F extends Supplier<Optional<E>>> implements IGenerator<E> {
+public abstract class ARetryingGenerator<E, F extends Supplier<Optional<E>>> extends AGeneratorDecorator<E, F> {
     private final int maxTrials;
-    private final F innerGenerator;
 
     //region Constructor
     public ARetryingGenerator(F innerGenerator, int maxTrials) {
-        this.innerGenerator = innerGenerator;
+        super(innerGenerator);
         this.maxTrials = maxTrials;
     }
 
@@ -24,7 +21,7 @@ public abstract class ARetryingGenerator<E, F extends Supplier<Optional<E>>> imp
 
     @Override
     public Optional<E> generate() {
-        return createRetryingStream(innerGenerator)
+        return createRetryingStream(getInnerGenerator())
                 .findFirst();
     }
 
@@ -35,9 +32,5 @@ public abstract class ARetryingGenerator<E, F extends Supplier<Optional<E>>> imp
                 .map(Optional::get);
     }
 
-
-    protected F getInnerGenerator() {
-        return innerGenerator;
-    }
 
 }
