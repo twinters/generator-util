@@ -7,9 +7,10 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-public class ChainedMappingGenerator<E, F extends Supplier<Optional<E>>> extends AMappingGenerator<E, F, E> {
+public class ChainedMappingGenerator<E> extends AMappingGenerator<E, Supplier<Optional<E>>, E> {
 
-    public ChainedMappingGenerator(F innerGenerator, Function<E, E>... operator) {
+    @SafeVarargs
+    public ChainedMappingGenerator(Supplier<Optional<E>> innerGenerator, Function<E, E>... operator) {
         super(innerGenerator, Stream.of(operator).reduce(Function.identity(), Function::andThen));
     }
 }

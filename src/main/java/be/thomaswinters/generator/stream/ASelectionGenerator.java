@@ -11,10 +11,10 @@ public abstract class ASelectionGenerator<E, F extends Supplier<Optional<E>>> ex
     private final ISelector<E> selector;
     private final int amountOfGenerations;
 
-    public ASelectionGenerator(F innerGenerator, ISelector<E> selector, int amountOfGenerations) {
+    public ASelectionGenerator(F innerGenerator, int amountOfGenerations, ISelector<E> selector) {
         super(innerGenerator);
-        this.selector = selector;
         this.amountOfGenerations = amountOfGenerations;
+        this.selector = selector;
     }
 
     @Override

@@ -7,7 +7,12 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public class SelectionGenerator<E> extends ASelectionGenerator<E, Supplier<Optional<E>>> {
+    public SelectionGenerator(Supplier<Optional<E>> innerGenerator, int amountOfGenerations, ISelector<E> selector) {
+        super(innerGenerator, amountOfGenerations, selector);
+    }
+
+    @Deprecated
     public SelectionGenerator(Supplier<Optional<E>> innerGenerator, ISelector<E> selector, int amountOfGenerations) {
-        super(innerGenerator, selector, amountOfGenerations);
+        this(innerGenerator, amountOfGenerations, selector);
     }
 }

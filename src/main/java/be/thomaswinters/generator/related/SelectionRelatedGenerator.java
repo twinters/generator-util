@@ -6,8 +6,8 @@ import be.thomaswinters.generator.stream.ASelectionGenerator;
 import java.util.Optional;
 
 public class SelectionRelatedGenerator<E> extends ASelectionGenerator<E, IRelatedGenerator<E>> implements IRelatedGenerator<E> {
-    public SelectionRelatedGenerator(IRelatedGenerator<E> innerGenerator, ISelector<E> selector, int amountOfGenerations) {
-        super(innerGenerator, selector, amountOfGenerations);
+    public SelectionRelatedGenerator(IRelatedGenerator<E> innerGenerator, int amountOfGenerations, ISelector<E> selector) {
+        super(innerGenerator, amountOfGenerations, selector);
     }
 
     @Override
