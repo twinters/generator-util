@@ -6,8 +6,8 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class PickBestSelector<E> extends FitnessBasedSelector<E> {
-    public PickBestSelector(IFitnessFunction<E> fitnessFunction) {
+public class PickBestFitnessSelector<E> extends FitnessBasedSelector<E> {
+    public PickBestFitnessSelector(IFitnessFunction<E> fitnessFunction) {
         super(fitnessFunction);
     }
 

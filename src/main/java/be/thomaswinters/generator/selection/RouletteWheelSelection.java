@@ -17,6 +17,10 @@ public class RouletteWheelSelection<E> extends FitnessBasedSelector<E> {
 
     @Override
     public Collection<E> selectWeighted(Stream<Weighted<E>> stream, int amount) {
+        return selectWeightedRouletteWheel(stream, amount);
+    }
+
+    public static <E> Collection<E> selectWeightedRouletteWheel(Stream<Weighted<E>> stream, int amount) {
         AccumulatedMap<E> accum = new AccumulatedMap<E>(stream);
         if (accum.getTotalSize() == 0) {
             throw new IllegalStateException("Can't do roulette wheel if there are no candidates! " + accum);

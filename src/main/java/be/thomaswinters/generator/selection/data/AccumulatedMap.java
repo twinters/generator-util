@@ -17,8 +17,10 @@ public class AccumulatedMap<E> {
                 new ImmutableSortedMap.Builder<>(Ordering.natural());
         double currentTotal = 0d;
         for (Weighted<E> entry : stream.collect(Collectors.toList())) {
-            currentTotal += entry.getFitness();
-            b.put(currentTotal, entry.getElement());
+            if (entry.getFitness() > 0) {
+                currentTotal += entry.getFitness();
+                b.put(currentTotal, entry.getElement());
+            }
         }
 
         // Initialise
