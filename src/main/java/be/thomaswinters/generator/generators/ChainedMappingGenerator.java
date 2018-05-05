@@ -13,4 +13,5 @@ public class ChainedMappingGenerator<E> extends AMappingGenerator<E, Supplier<Op
     public ChainedMappingGenerator(Supplier<Optional<E>> innerGenerator, Function<E, E>... operator) {
         super(innerGenerator, Stream.of(operator).reduce(Function.identity(), Function::andThen));
     }
+
 }

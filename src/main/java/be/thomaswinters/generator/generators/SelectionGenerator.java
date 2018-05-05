@@ -11,8 +11,4 @@ public class SelectionGenerator<E> extends ASelectionGenerator<E, Supplier<Optio
         super(innerGenerator, amountOfGenerations, selector);
     }
 
-    @Deprecated
-    public SelectionGenerator(Supplier<Optional<E>> innerGenerator, ISelector<E> selector, int amountOfGenerations) {
-        this(innerGenerator, amountOfGenerations, selector);
-    }
 }

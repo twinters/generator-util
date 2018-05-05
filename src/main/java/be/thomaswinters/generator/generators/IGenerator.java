@@ -22,7 +22,7 @@ public interface IGenerator<E> extends Supplier<Optional<E>> {
     }
 
     default <G> IGenerator<G> mapToDifferent(Function<E, G> operator) {
-        return new MappingGenerator<E, IGenerator<E>, G>(this, operator);
+        return new DifferentMappingGenerator<>(this, operator);
     }
 
     default IGenerator<E> max(int maxTrials, Comparator<E> comparator) {
@@ -41,8 +41,8 @@ public interface IGenerator<E> extends Supplier<Optional<E>> {
         return new SelectionGenerator<>(this, amountOfGenerations, selector);
     }
 
-    default IGenerator<E> filter(int maxTrials, Predicate<E>... filters) {
-        return new FilteringGenerator<>(this, maxTrials, filters);
+    default IGenerator<E> filter(int maxTrials, Predicate<E> filter) {
+        return new FilteringGenerator<>(this, maxTrials, filter);
     }
 
     default IGenerator<E> filter(Predicate<E> filter) {
