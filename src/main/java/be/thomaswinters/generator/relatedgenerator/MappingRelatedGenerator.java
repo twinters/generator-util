@@ -6,15 +6,14 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-public class MappingRelatedGenerator<E,F> extends AMappingGenerator<E, IRelatedGenerator<E,F>, E> implements IRelatedGenerator<E,F> {
+public class MappingRelatedGenerator<E,F,G> extends AMappingGenerator<E, IRelatedGenerator<E,F>, G> implements IRelatedGenerator<G,F> {
 
-    @SafeVarargs
-    public MappingRelatedGenerator(IRelatedGenerator<E,F> innerGenerator, Function<E, E>... operator) {
-        super(innerGenerator, Stream.of(operator).reduce(Function.identity(), Function::andThen));
+    public MappingRelatedGenerator(IRelatedGenerator<E,F> innerGenerator, Function<E, G> operator) {
+        super(innerGenerator, operator);
     }
 
     @Override
-    public Optional<E> generateRelated(F input) {
+    public Optional<G> generateRelated(F input) {
         return getInnerGenerator().generateRelated(input).map(getOperator());
     }
 }

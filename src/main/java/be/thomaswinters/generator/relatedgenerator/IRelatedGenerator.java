@@ -28,13 +28,8 @@ public interface IRelatedGenerator<E,F> extends IGenerator<E>, Function<F, Optio
     }
 
     @Override
-    default IRelatedGenerator<E,F> map(Function<E, E> operator) {
+    default <G> IRelatedGenerator<G,F> map(Function<E, G> operator) {
         return new MappingRelatedGenerator<>(this, operator);
-    }
-
-    @Override
-    default <G> IRelatedGenerator<G,F> mapToDifferent(Function<E, G> operator) {
-        throw new UnsupportedOperationException("Related Generators don't support mapping to a different object");
     }
 
     @Override

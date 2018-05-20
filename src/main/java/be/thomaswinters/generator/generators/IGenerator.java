@@ -17,11 +17,7 @@ public interface IGenerator<E> extends Supplier<Optional<E>> {
         return generate();
     }
 
-    default IGenerator<E> map(Function<E, E> operator) {
-        return new ChainedMappingGenerator<>(this, operator);
-    }
-
-    default <G> IGenerator<G> mapToDifferent(Function<E, G> operator) {
+    default <G> IGenerator<G> map(Function<E, G> operator) {
         return new DifferentMappingGenerator<>(this, operator);
     }
 
