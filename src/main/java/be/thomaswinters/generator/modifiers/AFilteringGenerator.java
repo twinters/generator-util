@@ -1,4 +1,4 @@
-package be.thomaswinters.generator.stream;
+package be.thomaswinters.generator.modifiers;
 
 import java.util.Optional;
 import java.util.function.Predicate;

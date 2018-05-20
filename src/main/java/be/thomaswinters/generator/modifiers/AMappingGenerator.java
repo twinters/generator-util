@@ -1,4 +1,4 @@
-package be.thomaswinters.generator.stream;
+package be.thomaswinters.generator.modifiers;
 
 import be.thomaswinters.generator.generators.IGenerator;
 

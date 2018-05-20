@@ -1,6 +1,6 @@
 package be.thomaswinters.generator.related;
 
-import be.thomaswinters.generator.stream.AFilteringGenerator;
+import be.thomaswinters.generator.modifiers.AFilteringGenerator;
 
 import java.util.Optional;
 import java.util.function.Predicate;

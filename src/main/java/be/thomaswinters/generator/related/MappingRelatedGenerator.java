@@ -1,6 +1,6 @@
 package be.thomaswinters.generator.related;
 
-import be.thomaswinters.generator.stream.AMappingGenerator;
+import be.thomaswinters.generator.modifiers.AMappingGenerator;
 
 import java.util.Optional;
 import java.util.function.Function;

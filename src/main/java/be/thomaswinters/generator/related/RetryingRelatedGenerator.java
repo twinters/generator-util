@@ -1,6 +1,6 @@
 package be.thomaswinters.generator.related;
 
-import be.thomaswinters.generator.stream.ARetryingGenerator;
+import be.thomaswinters.generator.modifiers.ARetryingGenerator;
 
 import java.util.Optional;
 

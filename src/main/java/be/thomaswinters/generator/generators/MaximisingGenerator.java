@@ -1,6 +1,6 @@
 package be.thomaswinters.generator.generators;
 
-import be.thomaswinters.generator.stream.AMaximisingGenerator;
+import be.thomaswinters.generator.modifiers.AMaximisingGenerator;
 
 import java.util.Comparator;
 import java.util.Optional;
