@@ -4,6 +4,7 @@ import be.thomaswinters.generator.generators.related.IRelatedGenerator;
 import be.thomaswinters.generator.streamgenerator.IStreamGenerator;
 import be.thomaswinters.generator.streamgenerator.StreamMappingGenerator;
 import be.thomaswinters.generator.streamgenerator.StreamToGeneratorAdaptor;
+import be.thomaswinters.generator.streamgenerator.reacting.IReactingStreamGenerator;
 
 import java.util.Comparator;
 import java.util.Optional;
@@ -11,8 +12,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public interface IRelatedStreamGenerator<E,F> extends IStreamGenerator<E> {
-    Stream<E> generateStream(F input);
+public interface IRelatedStreamGenerator<E,F> extends IStreamGenerator<E>, IReactingStreamGenerator<E,F> {
 
     // TO ISTREAMGENERATOR
     @Override

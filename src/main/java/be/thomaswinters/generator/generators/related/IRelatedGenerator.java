@@ -1,6 +1,7 @@
 package be.thomaswinters.generator.generators.related;
 
 import be.thomaswinters.generator.generators.IGenerator;
+import be.thomaswinters.generator.generators.reacting.IReactingGenerator;
 import be.thomaswinters.generator.selection.ISelector;
 
 import java.util.Comparator;
@@ -10,14 +11,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 
-public interface IRelatedGenerator<E,F> extends IGenerator<E>, Function<F, Optional<E>> {
-    Optional<E> generateRelated(F input);
-
-    @Override
-    default Optional<E> apply(F e) {
-        return generateRelated(e);
-    }
-
+public interface IRelatedGenerator<E,F> extends IGenerator<E>, IReactingGenerator<E,F> {
 
     default RelatedGenerator<E,F> updateGenerator(Function<IGenerator<E>, ? extends Supplier<Optional<E>>> mapper) {
         return new RelatedGenerator<>(mapper.apply(this), this::generateRelated);
