@@ -1,4 +1,4 @@
-package be.thomaswinters.generator.related;
+package be.thomaswinters.generator.relatedgenerator;
 
 import java.util.Optional;
 import java.util.function.Function;
