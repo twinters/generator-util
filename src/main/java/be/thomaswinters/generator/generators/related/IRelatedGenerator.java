@@ -1,4 +1,4 @@
-package be.thomaswinters.generator.relatedgenerator;
+package be.thomaswinters.generator.generators.related;
 
 import be.thomaswinters.generator.generators.IGenerator;
 import be.thomaswinters.generator.selection.ISelector;

@@ -1,10 +1,9 @@
-package be.thomaswinters.generator.relatedgenerator;
+package be.thomaswinters.generator.generators.related;
 
 import be.thomaswinters.generator.modifiers.AMappingGenerator;
 
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 public class MappingRelatedGenerator<E,F,G> extends AMappingGenerator<E, IRelatedGenerator<E,F>, G> implements IRelatedGenerator<G,F> {
 

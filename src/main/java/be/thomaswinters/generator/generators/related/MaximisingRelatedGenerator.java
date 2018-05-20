@@ -1,4 +1,4 @@
-package be.thomaswinters.generator.relatedgenerator;
+package be.thomaswinters.generator.generators.related;
 
 import be.thomaswinters.generator.modifiers.AMaximisingGenerator;
 
