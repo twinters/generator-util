@@ -25,6 +25,10 @@ public interface IStreamGenerator<E> {
         return mapStream(stream -> stream.filter(operator));
     }
 
+    default IStreamGenerator<E> distinct() {
+        return mapStream(Stream::distinct);
+    }
+
     default IStreamGenerator<E> sort(Comparator<E> comparator) {
         return mapStream(stream -> stream.sorted(comparator));
     }
