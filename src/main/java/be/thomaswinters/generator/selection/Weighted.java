@@ -18,5 +18,10 @@ public class Weighted<E> {
     public double getFitness() {
         return fitness;
     }
+
+    @Override
+    public String toString() {
+        return "{" + fitness + "}" + instance;
+    }
 }
 
