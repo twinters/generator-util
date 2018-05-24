@@ -4,6 +4,7 @@ import be.thomaswinters.generator.generators.IGenerator;
 
 import java.util.Comparator;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -27,6 +28,10 @@ public interface IStreamGenerator<E> {
 
     default IStreamGenerator<E> distinct() {
         return mapStream(Stream::distinct);
+    }
+
+    default IStreamGenerator<E> peek(Consumer<E> consumer) {
+        return mapStream(stream -> stream.peek(consumer));
     }
 
     default IStreamGenerator<E> sort(Comparator<E> comparator) {
