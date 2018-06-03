@@ -4,6 +4,7 @@ import be.thomaswinters.generator.selection.ISelector;
 
 import java.util.Comparator;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -43,6 +44,14 @@ public interface IGenerator<E> extends Supplier<Optional<E>> {
 
     default IGenerator<E> filter(Predicate<E> filter) {
         return new FilteringGenerator<>(this, filter);
+    }
+
+
+    default IGenerator<E> peek(Consumer<E> consumer) {
+        return map(e-> {
+            consumer.accept(e);
+            return e;
+        });
     }
 
 }

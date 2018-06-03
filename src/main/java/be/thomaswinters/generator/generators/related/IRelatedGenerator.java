@@ -6,6 +6,7 @@ import be.thomaswinters.generator.selection.ISelector;
 
 import java.util.Comparator;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -24,6 +25,14 @@ public interface IRelatedGenerator<E,F> extends IGenerator<E>, IReactingGenerato
     @Override
     default <G> IRelatedGenerator<G,F> map(Function<E, G> operator) {
         return new MappingRelatedGenerator<>(this, operator);
+    }
+
+    @Override
+    default IRelatedGenerator<E,F> peek(Consumer<E> consumer) {
+        return map(e-> {
+            consumer.accept(e);
+            return e;
+        });
     }
 
     @Override
@@ -55,4 +64,5 @@ public interface IRelatedGenerator<E,F> extends IGenerator<E>, IReactingGenerato
     default IRelatedGenerator<E,F> filter(Predicate<E> filter) {
         return new FilteringRelatedGenerator<>(this, filter);
     }
+
 }
