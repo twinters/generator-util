@@ -22,6 +22,10 @@ public interface IStreamGenerator<E> {
         return mapStream(stream -> stream.map(operator));
     }
 
+    default <F> IStreamGenerator<F> flatMap(Function<E, Stream<F>> operator) {
+        return mapStream(stream -> stream.flatMap(operator));
+    }
+
     default IStreamGenerator<E> filter(Predicate<E> operator) {
         return mapStream(stream -> stream.filter(operator));
     }
