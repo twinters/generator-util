@@ -1,9 +1,6 @@
 package be.thomaswinters.random;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Function;
 
 public class Picker {
@@ -12,6 +9,9 @@ public class Picker {
 
     public static <E> E pick(Collection<E> values) {
         return new ArrayList<E>(values).get(RANDOM.nextInt(values.size()));
+    }
+    public static <E> Optional<E> pickOptional(Collection<E> values) {
+        return values.isEmpty() ? Optional.empty() : Optional.of(pick(values));
     }
 
     /**
