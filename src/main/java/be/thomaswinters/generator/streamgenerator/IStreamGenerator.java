@@ -1,6 +1,8 @@
 package be.thomaswinters.generator.streamgenerator;
 
 import be.thomaswinters.generator.generators.IGenerator;
+import be.thomaswinters.generator.selection.ISelector;
+import be.thomaswinters.generator.selection.RandomUniqueSelector;
 
 import java.util.Comparator;
 import java.util.Optional;
@@ -42,10 +44,22 @@ public interface IStreamGenerator<E> {
         return mapStream(stream -> stream.sorted(comparator));
     }
 
+    default IStreamGenerator<E> limit(int numberOfGenerations) {
+        return () -> generateStream()
+                .limit(numberOfGenerations);
+    }
 
     // TO IGENERATOR
     default IGenerator<E> reduceToGenerator(Function<Stream<E>, Optional<E>> reducer) {
         return new StreamToGeneratorAdaptor<>(this, reducer);
+    }
+
+    default IGenerator<E> reduceToGenerator() {
+        return reduceToGenerator(new RandomUniqueSelector<>());
+    }
+
+    default IGenerator<E> reduceToGenerator(ISelector<E> selector) {
+        return () -> selector.select(this.generateStream());
     }
 
     default IGenerator<E> findFirst() {
