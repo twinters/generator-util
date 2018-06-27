@@ -12,4 +12,5 @@ public interface IReactingStreamGenerator<E,F> {
     default IStreamGenerator<E> seed(Supplier<F> inputSupplier) {
         return new SeededReactingStreamGenerator<>(this,inputSupplier);
     }
+
 }

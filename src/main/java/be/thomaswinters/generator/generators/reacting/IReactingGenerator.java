@@ -32,4 +32,12 @@ public interface IReactingGenerator<E, F> extends Function<F, Optional<E>> {
                 .filter(Optional::isPresent)
                 .map(Optional::get);
     }
+
+    default <G> IReactingGenerator<E, G> mapFrom(Function<G, F> mapper) {
+        return input -> this.generateRelated(mapper.apply(input));
+    }
+
+    default <G> IReactingGenerator<G, F> mapTo(Function<E, G> mapper) {
+        return input -> this.generateRelated(input).map(mapper);
+    }
 }
