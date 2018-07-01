@@ -5,6 +5,8 @@ import be.thomaswinters.generator.streamgenerator.IStreamGenerator;
 
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.IntStream;
 
 @FunctionalInterface
 public interface IReactingGenerator<E, F> extends Function<F, Optional<E>> {
@@ -39,5 +41,14 @@ public interface IReactingGenerator<E, F> extends Function<F, Optional<E>> {
 
     default <G> IReactingGenerator<G, F> mapTo(Function<E, G> mapper) {
         return input -> this.generateRelated(input).map(mapper);
+    }
+
+    default IReactingGenerator<E, F> filter(int maxTrials, Predicate<E> filter) {
+        return (F input) -> IntStream.range(0, maxTrials)
+                .mapToObj(x -> generateRelated(input))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .filter(filter)
+                .findFirst();
     }
 }
