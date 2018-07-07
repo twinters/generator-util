@@ -54,6 +54,18 @@ public interface IReactingGenerator<E, F> extends Function<F, Optional<E>> {
 
     default IReactingGenerator<E, F> orElse(IReactingGenerator<E, F> alternative) {
         return input -> this.generateRelated(input)
-                .or(()->alternative.generateRelated(input));
+                .or(() -> alternative.generateRelated(input));
+    }
+
+    default IReactingGenerator<E, F> retry(int maxAmountOfTimes) {
+        return input -> {
+            for (int i = 0; i < maxAmountOfTimes; i++) {
+                Optional<E> result = this.generateRelated(input);
+                if (result.isPresent()) {
+                    return result;
+                }
+            }
+            return Optional.empty();
+        };
     }
 }
