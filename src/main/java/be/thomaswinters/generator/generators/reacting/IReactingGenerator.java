@@ -39,7 +39,7 @@ public interface IReactingGenerator<E, F> extends Function<F, Optional<E>> {
         return input -> this.generateRelated(mapper.apply(input));
     }
 
-    default <G> IReactingGenerator<G, F> mapTo(Function<E, G> mapper) {
+    default <G> IReactingGenerator<G, F> map(Function<E, G> mapper) {
         return input -> this.generateRelated(input).map(mapper);
     }
 
@@ -50,5 +50,10 @@ public interface IReactingGenerator<E, F> extends Function<F, Optional<E>> {
                 .map(Optional::get)
                 .filter(filter)
                 .findFirst();
+    }
+
+    default IReactingGenerator<E, F> orElse(IReactingGenerator<E, F> alternative) {
+        return input -> this.generateRelated(input)
+                .or(()->alternative.generateRelated(input));
     }
 }

@@ -35,4 +35,12 @@ public class AccumulatedMap<E> {
     public double getTotalSize() {
         return totalSize;
     }
+
+    @Override
+    public String toString() {
+        return "AccumulatedMap{" +
+                "totalSize=" + totalSize +
+                ", accumulatedMap=" + accumulatedMap +
+                '}';
+    }
 }
