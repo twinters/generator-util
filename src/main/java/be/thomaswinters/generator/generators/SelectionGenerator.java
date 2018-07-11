@@ -1,7 +1,7 @@
 package be.thomaswinters.generator.generators;
 
-import be.thomaswinters.generator.selection.ISelector;
 import be.thomaswinters.generator.modifiers.ASelectionGenerator;
+import be.thomaswinters.generator.selection.ISelector;
 
 import java.util.Optional;
 import java.util.function.Supplier;

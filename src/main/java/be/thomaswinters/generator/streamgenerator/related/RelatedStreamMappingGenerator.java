@@ -1,9 +1,5 @@
 package be.thomaswinters.generator.streamgenerator.related;
 
-import be.thomaswinters.generator.streamgenerator.IStreamGenerator;
-import be.thomaswinters.generator.streamgenerator.StreamMappingGenerator;
-import be.thomaswinters.generator.streamgenerator.StreamToGeneratorAdaptor;
-
 import java.util.function.Function;
 import java.util.stream.Stream;
 

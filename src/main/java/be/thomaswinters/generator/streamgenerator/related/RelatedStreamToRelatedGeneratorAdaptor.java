@@ -1,7 +1,6 @@
 package be.thomaswinters.generator.streamgenerator.related;
 
 import be.thomaswinters.generator.generators.related.IRelatedGenerator;
-import be.thomaswinters.generator.streamgenerator.IStreamGenerator;
 
 import java.util.Optional;
 import java.util.function.Function;

@@ -1,9 +1,6 @@
 package be.thomaswinters.numbergenerator.generators;
 
-import be.thomaswinters.generator.generators.IGenerator;
-
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 public abstract class ANumberGeneratorComposite implements INumberGenerator {

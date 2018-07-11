@@ -10,7 +10,12 @@ import java.util.stream.IntStream;
 
 @FunctionalInterface
 public interface IReactingGenerator<E, F> extends Function<F, Optional<E>> {
+    @Deprecated
     Optional<E> generateRelated(F input);
+
+    default Optional<E> generateFor(F input) {
+        return generateRelated(input);
+    }
 
     @Override
     default Optional<E> apply(F input) {

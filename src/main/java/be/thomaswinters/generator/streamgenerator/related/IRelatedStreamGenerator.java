@@ -2,8 +2,6 @@ package be.thomaswinters.generator.streamgenerator.related;
 
 import be.thomaswinters.generator.generators.related.IRelatedGenerator;
 import be.thomaswinters.generator.streamgenerator.IStreamGenerator;
-import be.thomaswinters.generator.streamgenerator.StreamMappingGenerator;
-import be.thomaswinters.generator.streamgenerator.StreamToGeneratorAdaptor;
 import be.thomaswinters.generator.streamgenerator.reacting.IReactingStreamGenerator;
 
 import java.util.Comparator;
