@@ -1,6 +1,8 @@
 package be.thomaswinters.generator.streamgenerator.related;
 
+import be.thomaswinters.generator.generators.reacting.IReactingGenerator;
 import be.thomaswinters.generator.generators.related.IRelatedGenerator;
+import be.thomaswinters.generator.selection.ISelector;
 import be.thomaswinters.generator.streamgenerator.IStreamGenerator;
 import be.thomaswinters.generator.streamgenerator.reacting.IReactingStreamGenerator;
 
@@ -53,6 +55,11 @@ public interface IRelatedStreamGenerator<E,F> extends IStreamGenerator<E>, IReac
     @Override
     default IRelatedGenerator<E,F> min(Comparator<E> comparator) {
         return reduceToGenerator(stream -> stream.min(comparator));
+    }
+
+    @Override
+    default IRelatedGenerator<E,F> reduceToGenerator(ISelector<E> selector) {
+        return reduceToGenerator((Function<Stream<E>, Optional<E>>) selector::select);
     }
 
 

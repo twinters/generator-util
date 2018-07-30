@@ -26,7 +26,7 @@ public interface IReactingGenerator<E, F> extends Function<F, Optional<E>> {
         return () -> {
             Optional<F> generated = seeder.generate();
             if (generated.isPresent()) {
-                return generateRelated(generated.get());
+                return generateFor(generated.get());
             }
             return Optional.empty();
         };
