@@ -10,6 +10,6 @@ public class RandomUniqueSelector<E> implements ISelector<E> {
 
     @Override
     public Collection<E> select(Stream<E> collection, int amount) {
-        return Picker.pick(collection.collect(Collectors.toList()), amount);
+        return Picker.pickAtMost(collection.collect(Collectors.toList()), amount);
     }
 }
