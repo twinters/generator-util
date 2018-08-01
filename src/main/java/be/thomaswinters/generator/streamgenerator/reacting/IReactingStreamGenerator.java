@@ -6,6 +6,7 @@ import be.thomaswinters.generator.selection.Weighted;
 import be.thomaswinters.generator.streamgenerator.IStreamGenerator;
 
 import java.util.function.BiPredicate;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -37,5 +38,9 @@ public interface IReactingStreamGenerator<E, F> {
 
     default IReactingStreamGenerator<E, F> combineWith(IReactingStreamGenerator<E, F> other) {
         return input -> Stream.concat(generateStream(input), other.generateStream(input));
+    }
+
+    default IReactingStreamGenerator<E, F> peek(Consumer<E> consumer) {
+        return input -> generateStream(input).peek(consumer);
     }
 }

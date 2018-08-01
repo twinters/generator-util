@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 @FunctionalInterface
 public interface IReactingGenerator<E, F> extends Function<F, Optional<E>> {
@@ -21,7 +20,7 @@ public interface IReactingGenerator<E, F> extends Function<F, Optional<E>> {
 
     @Override
     default Optional<E> apply(F input) {
-        return generateRelated(input);
+        return generate(input);
     }
 
     default IGenerator<E> toGenerator(IGenerator<F> seeder) {
