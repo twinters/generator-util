@@ -31,7 +31,7 @@ public interface IReactingStreamGenerator<E, F> {
         return input -> selector.select(this.generateStream(input));
     }
 
-    default IReactingStreamGenerator<Weighted<E>, F> weight(int i) {
+    default IReactingStreamGenerator<Weighted<E>, F> weight(double i) {
         return input -> generateStream(input).map(e -> new Weighted<>(e, i));
     }
 
