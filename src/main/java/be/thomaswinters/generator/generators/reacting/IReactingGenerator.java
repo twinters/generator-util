@@ -2,20 +2,22 @@ package be.thomaswinters.generator.generators.reacting;
 
 import be.thomaswinters.generator.generators.IGenerator;
 import be.thomaswinters.generator.streamgenerator.IStreamGenerator;
+import be.thomaswinters.generator.streamgenerator.reacting.IReactingStreamGenerator;
 
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @FunctionalInterface
 public interface IReactingGenerator<E, F> extends Function<F, Optional<E>> {
     @Deprecated
-    Optional<E> generateRelated(F input);
-
-    default Optional<E> generateFor(F input) {
-        return generateRelated(input);
+    default Optional<E> generateRelated(F input) {
+        return generate(input);
     }
+
+    Optional<E> generate(F input);
 
     @Override
     default Optional<E> apply(F input) {
@@ -26,7 +28,7 @@ public interface IReactingGenerator<E, F> extends Function<F, Optional<E>> {
         return () -> {
             Optional<F> generated = seeder.generate();
             if (generated.isPresent()) {
-                return generateFor(generated.get());
+                return generate(generated.get());
             }
             return Optional.empty();
         };
@@ -41,16 +43,16 @@ public interface IReactingGenerator<E, F> extends Function<F, Optional<E>> {
     }
 
     default <G> IReactingGenerator<E, G> mapFrom(Function<G, F> mapper) {
-        return input -> this.generateRelated(mapper.apply(input));
+        return input -> this.generate(mapper.apply(input));
     }
 
     default <G> IReactingGenerator<G, F> map(Function<E, G> mapper) {
-        return input -> this.generateRelated(input).map(mapper);
+        return input -> this.generate(input).map(mapper);
     }
 
     default IReactingGenerator<E, F> filter(int maxTrials, Predicate<E> filter) {
         return (F input) -> IntStream.range(0, maxTrials)
-                .mapToObj(x -> generateRelated(input))
+                .mapToObj(x -> generate(input))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .filter(filter)
@@ -58,19 +60,23 @@ public interface IReactingGenerator<E, F> extends Function<F, Optional<E>> {
     }
 
     default IReactingGenerator<E, F> orElse(IReactingGenerator<E, F> alternative) {
-        return input -> this.generateRelated(input)
-                .or(() -> alternative.generateRelated(input));
+        return input -> this.generate(input)
+                .or(() -> alternative.generate(input));
     }
 
     default IReactingGenerator<E, F> retry(int maxAmountOfTimes) {
         return input -> {
             for (int i = 0; i < maxAmountOfTimes; i++) {
-                Optional<E> result = this.generateRelated(input);
+                Optional<E> result = this.generate(input);
                 if (result.isPresent()) {
                     return result;
                 }
             }
             return Optional.empty();
         };
+    }
+
+    default IReactingStreamGenerator<E, F> toReactingStreamGenerator() {
+        return input -> this.generate(input).stream();
     }
 }

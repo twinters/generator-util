@@ -14,8 +14,8 @@ public class RetryingRelatedGenerator<E,F> extends ARetryingGenerator<E, IRelate
     }
 
     @Override
-    public Optional<E> generateRelated(F input) {
-        return createRetryingStream(() -> getInnerGenerator().generateRelated(input)).findFirst();
+    public Optional<E> generate(F input) {
+        return createRetryingStream(() -> getInnerGenerator().generate(input)).findFirst();
     }
 }
 

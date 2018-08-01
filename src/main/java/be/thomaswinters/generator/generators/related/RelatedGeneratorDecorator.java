@@ -15,7 +15,7 @@ public abstract class RelatedGeneratorDecorator<E,F> implements IRelatedGenerato
 
     @Override
     public Optional<E> generateRelated(F input) {
-        return innerGenerator.generateRelated(input);
+        return innerGenerator.generate(input);
     }
 
     @Override

@@ -14,7 +14,7 @@ public class RelatedGenerator<E,F> implements IRelatedGenerator<E,F> {
     }
 
     @Override
-    public Optional<E> generateRelated(F input) {
+    public Optional<E> generate(F input) {
         return relatedGenerator.apply(input);
     }
 

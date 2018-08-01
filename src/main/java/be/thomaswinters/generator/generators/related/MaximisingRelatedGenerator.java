@@ -12,7 +12,7 @@ public class MaximisingRelatedGenerator<E,F> extends AMaximisingGenerator<E, IRe
     }
 
     @Override
-    public Optional<E> generateRelated(F input) {
-        return maximise(() -> getInnerGenerator().generateRelated(input));
+    public Optional<E> generate(F input) {
+        return maximise(() -> getInnerGenerator().generate(input));
     }
 }

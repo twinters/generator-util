@@ -11,7 +11,7 @@ public class SelectionRelatedGenerator<E,F> extends ASelectionGenerator<E, IRela
     }
 
     @Override
-    public Optional<E> generateRelated(F input) {
-        return select(() -> getInnerGenerator().generateRelated(input));
+    public Optional<E> generate(F input) {
+        return select(() -> getInnerGenerator().generate(input));
     }
 }

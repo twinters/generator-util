@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 public interface IRelatedGenerator<E,F> extends IGenerator<E>, IReactingGenerator<E,F> {
 
     default RelatedGenerator<E,F> updateGenerator(Function<IGenerator<E>, ? extends Supplier<Optional<E>>> mapper) {
-        return new RelatedGenerator<>(mapper.apply(this), this::generateRelated);
+        return new RelatedGenerator<>(mapper.apply(this), this::generate);
     }
 
     default RelatedGenerator<E,F> updateRelatedGenerator(Function<IRelatedGenerator<E,F>, ? extends IRelatedGenerator<E,F>> mapper) {

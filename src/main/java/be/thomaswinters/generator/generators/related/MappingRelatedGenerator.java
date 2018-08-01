@@ -12,7 +12,7 @@ public class MappingRelatedGenerator<E,F,G> extends AMappingGenerator<E, IRelate
     }
 
     @Override
-    public Optional<G> generateRelated(F input) {
+    public Optional<G> generate(F input) {
         return getInnerGenerator().generateRelated(input).map(getOperator());
     }
 }

@@ -21,7 +21,7 @@ public class RelatedStreamToRelatedGeneratorAdaptor<E,F> implements IRelatedGene
     }
 
     @Override
-    public Optional<E> generateRelated(F input) {
+    public Optional<E> generate(F input) {
         return mapper.apply(innerStreamGenerator.generateStream(input));
     }
 }

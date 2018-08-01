@@ -18,7 +18,7 @@ public class FilteringRelatedGenerator<E,F> extends AFilteringGenerator<E, IRela
     }
 
     @Override
-    public Optional<E> generateRelated(F input) {
-        return filter(() -> getInnerGenerator().generateRelated(input));
+    public Optional<E> generate(F input) {
+        return filter(() -> getInnerGenerator().generate(input));
     }
 }
