@@ -2,11 +2,11 @@ package be.thomaswinters.generator.selection;
 
 public class Weighted<E> {
     private final E instance;
-    private final double fitness;
+    private final double weight;
 
-    public Weighted(E instance, double fitness) {
+    public Weighted(E instance, double weight) {
         this.instance = instance;
-        this.fitness = fitness;
+        this.weight = weight;
     }
 
 
@@ -15,13 +15,19 @@ public class Weighted<E> {
         return instance;
     }
 
+    @Deprecated
     public double getFitness() {
-        return fitness;
+        return weight;
     }
+
+    public double getWeight() {
+        return weight;
+    }
+
 
     @Override
     public String toString() {
-        return "{" + fitness + "}" + instance;
+        return "{" + weight + "}" + instance;
     }
 }
 
