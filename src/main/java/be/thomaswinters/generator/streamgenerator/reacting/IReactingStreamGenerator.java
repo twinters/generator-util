@@ -2,6 +2,7 @@ package be.thomaswinters.generator.streamgenerator.reacting;
 
 import be.thomaswinters.generator.generators.reacting.IReactingGenerator;
 import be.thomaswinters.generator.selection.ISelector;
+import be.thomaswinters.generator.selection.Weighted;
 import be.thomaswinters.generator.streamgenerator.IStreamGenerator;
 
 import java.util.function.BiPredicate;
@@ -20,8 +21,9 @@ public interface IReactingStreamGenerator<E, F> {
     default IReactingStreamGenerator<E, F> filter(Predicate<E> filter) {
         return input -> generateStream(input).filter(filter);
     }
-    default IReactingStreamGenerator<E, F> filterUsingInput(BiPredicate<F,E> filter) {
-        return input -> generateStream(input).filter(e->filter.test(input,e));
+
+    default IReactingStreamGenerator<E, F> filterUsingInput(BiPredicate<F, E> filter) {
+        return input -> generateStream(input).filter(e -> filter.test(input, e));
     }
 
 
@@ -29,4 +31,11 @@ public interface IReactingStreamGenerator<E, F> {
         return input -> selector.select(this.generateStream(input));
     }
 
+    default IReactingStreamGenerator<Weighted<E>, F> weight(int i) {
+        return input -> generateStream(input).map(e -> new Weighted<>(e, i));
+    }
+
+    default IReactingStreamGenerator<E, F> combineWith(IReactingStreamGenerator<E, F> other) {
+        return input -> Stream.concat(generateStream(input), other.generateStream(input));
+    }
 }
