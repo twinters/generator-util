@@ -1,18 +1,19 @@
 package be.thomaswinters.generator.selection;
 
+import java.util.function.Function;
+
 public class Weighted<E> {
-    private final E instance;
+    private final E element;
     private final double weight;
 
     public Weighted(E instance, double weight) {
-        this.instance = instance;
+        this.element = instance;
         this.weight = weight;
     }
 
 
     public E getElement() {
-
-        return instance;
+        return element;
     }
 
     @Deprecated
@@ -24,10 +25,14 @@ public class Weighted<E> {
         return weight;
     }
 
+    public <F> Weighted<F> map(Function<E,F> function) {
+        return new Weighted<>(function.apply(element), weight);
+    }
+
 
     @Override
     public String toString() {
-        return "{" + weight + "}" + instance;
+        return "{" + weight + "}" + element;
     }
 }
 
