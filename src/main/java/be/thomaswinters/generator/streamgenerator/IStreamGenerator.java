@@ -62,6 +62,7 @@ public interface IStreamGenerator<E> {
         return () -> selector.select(this.generateStream());
     }
 
+
     default IGenerator<E> findFirst() {
         return reduceToGenerator(Stream::findFirst);
     }
@@ -75,4 +76,7 @@ public interface IStreamGenerator<E> {
     }
 
 
+    default IStreamGenerator<E> makeInfinite() {
+        return () -> Stream.generate(this::generateStream).flatMap(e -> e);
+    }
 }
