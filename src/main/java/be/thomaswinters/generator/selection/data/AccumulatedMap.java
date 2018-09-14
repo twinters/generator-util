@@ -12,11 +12,11 @@ public class AccumulatedMap<E> {
     private final double totalSize;
     private final NavigableMap<Double, E> accumulatedMap;
 
-    public AccumulatedMap(Stream<Weighted<E>> stream) {
+    public AccumulatedMap(Stream<? extends Weighted<? extends E>> stream) {
         ImmutableSortedMap.Builder<Double, E> b =
                 new ImmutableSortedMap.Builder<>(Ordering.natural());
         double currentTotal = 0d;
-        for (Weighted<E> entry : stream.collect(Collectors.toList())) {
+        for (Weighted<? extends E> entry : stream.collect(Collectors.toList())) {
             if (entry.getFitness() > 0) {
                 currentTotal += entry.getFitness();
                 b.put(currentTotal, entry.getElement());
