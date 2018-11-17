@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @FunctionalInterface
 public interface IReactingGenerator<E, F> extends Function<F, Optional<E>> {
@@ -77,5 +78,9 @@ public interface IReactingGenerator<E, F> extends Function<F, Optional<E>> {
 
     default IReactingStreamGenerator<E, F> toReactingStreamGenerator() {
         return input -> this.generate(input).stream();
+    }
+
+    default IReactingStreamGenerator<E, F> toInfiniteReactingStreamGenerator() {
+        return input -> Stream.generate(() -> this.generate(input)).filter(Optional::isPresent).map(Optional::get);
     }
 }
